@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="todolist">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Lista de Tarefas</title>
+	<link rel="stylesheet" href="assets/css/normalize.css">
+	<link rel="stylesheet" href="assets/css/style.css">
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js" ></script>
+
+	<div class="content" ng-controller="TodoController" ng-init="init()">
+		<h1>Lista de Tarefas</h1>
+		
+		<div id="todolist">
+			<form ng-submit="add()">
+				<input type="text" id="new-todo" ng-model="todo.task" placeholder="O que deseja fazer?" required>
+			</form>
+			<ul>
+				<li ng-repeat="todo in todos | filter:todo.done === false">
+					<span>{{todo.task}}</span>
+					<span class="item-action">
+						<a href="javascript:;" ng-click="done($index)"><i class="fa fa-check"></i></a>
+						<a href="javascript:;" ng-click="remove($index)"><i class="fa fa-times"></i></a>
+					</span>
+				</li>
+			</ul>
+		</div>
+		
+	</div>
+	<script src="assets/js/app.js"></script>
+
+</body>
+</html>
