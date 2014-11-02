@@ -17,10 +17,10 @@
 				<input type="text" id="new-todo" ng-model="todo.task" placeholder="O que deseja fazer?" required>
 			</form>
 			<ul>
-				<li ng-repeat="todo in todos | filter:todo.done === false">
-					<span>{{todo.task}}</span>
+				<li ng-repeat="todo in todos">
+					<span ng-class="todo.done? 'item-done': ''" class="">{{todo.task}}</span>
 					<span class="item-action">
-						<a href="javascript:;" ng-click="done($index)"><i class="fa fa-check"></i></a>
+						<a href="javascript:;" ng-show="!todo.done" ng-click="done($index)"><i class="fa fa-check"></i></a>
 						<a href="javascript:;" ng-click="remove($index)"><i class="fa fa-times"></i></a>
 					</span>
 				</li>

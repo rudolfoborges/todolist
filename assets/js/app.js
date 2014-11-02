@@ -25,15 +25,9 @@ angular.module('todolist', [])
 	}
 
 	$scope.done = function(index){
-		var dones = angular.fromJson(localStorage.getItem('dones'));
-		if(dones === null){
-			dones = [];
-		}
-		todo = $scope.todos[index];
+		var todo = $scope.todos[index];
 		todo.done = true;
-		dones.push(todo);
-		localStorage.setItem('dones', angular.toJson(dones));
-		$scope.remove(index);
+		localStorage.setItem('todos', angular.toJson(todos));
 	}
 
 });

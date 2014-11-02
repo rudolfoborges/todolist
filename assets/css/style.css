@@ -148,6 +148,12 @@ li {
 	 			0 44px 2px -6px rgba(0, 0, 0, 0.2);
 }
 
+.item-done {
+	text-decoration: line-through;
+	font-style: italic;
+	color: #a9a9a9;
+}
+
 .item-action {
 	float: right;
 	margin-right: 15px;
