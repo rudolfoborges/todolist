@@ -5,8 +5,19 @@ var express = require('express'),
 
 
 var app = express();
+
+app.use(function(req, res, next) {
+    if (req.headers.origin) {
+        res.header('Access-Control-Allow-Origin', '*')
+        res.header('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Authorization')
+        res.header('Access-Control-Allow-Methods', 'GET,PUT,PATCH,POST,DELETE')
+        if (req.method === 'OPTIONS') return res.send(200)
+    }
+    next();
+});
+
 app.use(bodyParser.json());
-mongoose.connect('mongodb://todolist:todolist2515@ds049130.mongolab.com:49130/todolist');
+mongoose.connect('mongodb://todolist:1234@ds049130.mongolab.com:49130/todolist');
 
 var TodoSchema = mongoose.Schema({
 	task: String,
@@ -18,5 +29,5 @@ var TodoResource = restful.model('todo', TodoSchema);
 TodoResource.methods(['get', 'post', 'put', 'delete']);
 TodoResource.register(app, '/api/todos');
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
 console.log('Server running');

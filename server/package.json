@@ -1,6 +1,9 @@
 {
 	"name": "todolistrestful",
 	"main": "todolist.js",
+	"scripts": {
+    	"start": "node todolist.js"
+	},
 	"dependencies": {
 		"express": "latest",
 		"body-parser": "~1.8.1",

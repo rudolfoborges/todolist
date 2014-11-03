@@ -1,32 +1,42 @@
-angular.module('todolist', [])
+angular.module('todolist', ['ngResource'])
 
-.controller('TodoController', function($scope){
+.controller('TodoController', function($scope, $http){
 
 	$scope.todos = [];
+	var uri = 'http://apitodolist.herokuapp.com/api/todos';
 
 	$scope.init = function(){
-		$scope.todos = angular.fromJson(window.localStorage.getItem('todos'));
+		$http.get(uri).success(function(response){
+			$scope.todos = response;
+		});
 		if($scope.todos === null){
 			$scope.todos = [];
 		}
 	}
 
 	$scope.add = function(){
-		$scope.todos.push({task: $scope.todo.task, done: false});
-		window.localStorage.setItem('todos', angular.toJson($scope.todos));
+		var todo = {task: $scope.todo.task, doing: false, done: false};
+		$http.post(uri, todo);
+		$scope.todos.push(todo);
 		$scope.todo.task = '';
 	}
 
 	$scope.remove = function(index){
-		console.log(index);
+		var todo = $scope.todos[index];
+		$http.delete(uri + '/' + todo._id);
 		$scope.todos.splice(index, 1);
-		window.localStorage.setItem('todos', angular.toJson($scope.todos));
 	}
 
 	$scope.done = function(index){
 		var todo = $scope.todos[index];
 		todo.done = true;
-		window.localStorage.setItem('todos', angular.toJson(todos));
+		$http.put(uri + '/' + todo._id, todo);
+	}
+
+	$scope.doing = function(index){
+		var todo = $scope.todos[index];
+		todo.doing = true;
+		$http.put(uri + '/' + todo._id, todo);
 	}
 
 });
